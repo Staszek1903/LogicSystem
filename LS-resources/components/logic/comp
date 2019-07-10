@@ -1,0 +1,24 @@
+@name l/eq/g;
+
+@vertex 
+	-20 -20;
+	20 -20;
+	20 20;
+	-20 20;
+	
+	
+@ports
+	in i1 8 -20 -10;
+	in i2 8 -20 10;
+	out l 8 20 -10;
+	out eq 8 20 0;
+	out g 9 20 10;
+
+@algorithm
+	equ i1 i2 eq;
+	lst i1 i2 l;
+	nor eq l g; 
+	
+@additional 
+	algorithm;
+	label;

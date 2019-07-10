@@ -1,0 +1,34 @@
+@name latch;
+@vertex 
+	-20 -20;
+	20 -20;
+	20 20;
+	-20 20;
+	
+	
+@ports
+	in en 8 -20 -10;
+	in data 8 -20 10;
+	out o1 8 20 0;
+
+@memory
+	state;
+	temp;
+	temp2;
+	prev_en;
+	slope;
+	
+@algorithm
+	not prev_en slope;
+	and slope en slope;
+	mov en prev_en;
+	
+	not slope temp;
+	and state temp temp;
+	and slope data temp2;
+	or temp temp2 state;
+	mov state o1;
+		
+@additional 
+	algorithm;
+	latch;

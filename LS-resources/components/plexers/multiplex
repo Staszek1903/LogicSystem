@@ -1,0 +1,23 @@
+@name mult;
+@vertex 
+	-20 -40;
+	20 -20;
+	20 20;
+	-20 40;
+	
+	
+@ports
+	in a 8 -20 -20;
+	in b 8 -20 20;
+	in s 8 0 -30;
+	out o 8 20 0;
+
+@memory temp;
+
+@algorithm
+	and s 1 temp;
+	mov in_adr[temp] o;
+	
+@additional 
+	algorithm;
+	label;

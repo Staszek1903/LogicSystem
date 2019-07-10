@@ -1,0 +1,10 @@
+@name led;
+@vertex
+	-10 -10;
+	10 -10;
+	10 10;
+	-10 10;
+	
+@ports
+	in i 8 -10 0;
+@additional led;

@@ -1,0 +1,14 @@
+@name button;
+@vertex
+	-10 -10;
+	10 -10;
+	10 10;
+	-10 10;
+	
+@ports
+	out o 8 10 0;
+
+@configwindow button;
+@additional 
+	button;
+	startpoint;

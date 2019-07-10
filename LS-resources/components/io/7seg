@@ -1,0 +1,11 @@
+@name 7seg;
+@vertex
+	-40 -50;
+	100 -50;
+	100 40;
+	-40 40;
+	
+@ports
+	in i 8 -40 -5;
+	
+@additional 7segdisp;

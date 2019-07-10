@@ -1,0 +1,29 @@
+@name demult;
+@vertex 
+	20 -40;
+	20 40;
+	-20 20;
+	-20 -20;
+	
+@ports
+	in data 8 -20 0;
+	in s 8 0 -30;
+	out a 8 20 -30;
+	out b 8 20 -10;
+	out c 8 20 10;
+	out d 8 20 30;
+
+@memory
+	temp;
+		
+@algorithm
+	mov 0 a;
+	mov 0 b;
+	mov 0 c;
+	mov 0 d;
+	and 3 s temp;
+	mov data out_adr[temp];
+	
+@additional 
+	algorithm;
+	label;

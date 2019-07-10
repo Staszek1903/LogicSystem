@@ -1,0 +1,23 @@
+@name or;
+@vertex 
+	0 0;
+	-20 -20;
+	10 -15;
+	20 0;
+	10 15;
+	-20 20;
+	-15 5;
+	-15 -5;
+	-20 20;
+	
+@ports
+	in i1 8 -20 -10;
+	in i2 8 -20 10;
+	out o1 8 20 0;
+
+@algorithm
+	or i1 i2 o1;
+	
+@additional 
+	algorithm;
+	label;

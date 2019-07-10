@@ -1,0 +1,42 @@
+@name mem255;
+@vertex 
+	-20 -40;
+	60 -40;
+	60 40;
+	-20 40;
+	
+	
+@ports
+	in en 8 -20 -20;
+	in data 8 -20 0;
+	in adr 8 -20 20
+	out o1 8 60 0;
+
+@memory
+	temp;
+	temp2;
+	prev_en;
+	slope;
+	state[256];
+	
+@algorithm
+	not prev_en slope;
+	and slope en slope;
+	mov en prev_en;
+	
+	add adr 4 temp;
+	adr32 0 temp;
+	and .carry_reg 1 .carry_reg;
+	adr32 1 .carry_reg;
+	
+	not slope temp;
+	and .adr32_mem temp temp;
+	and slope data temp2;
+	or temp temp2 .adr32_mem;
+	mov .adr32_mem o1;
+		
+@additional 
+	algorithm;
+	label;
+	
+@configwindow memory;

@@ -1,0 +1,28 @@
+@name async_latch;
+@vertex 
+	-20 -20;
+	20 -20;
+	20 20;
+	-20 20;
+	
+	
+@ports
+	in en 8 -20 -10;
+	in data 8 -20 10;
+	out o1 8 20 0;
+
+@memory
+	state;
+	temp;
+	temp2;
+	
+@algorithm
+	not en temp;
+	and state temp temp;
+	and en data temp2;
+	or temp temp2 state;
+	mov state o1;
+		
+@additional 
+	algorithm;
+	latch;

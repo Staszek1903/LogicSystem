@@ -1,0 +1,15 @@
+@name not;
+@vertex 
+	-20 -20;
+	20 0;
+	-20 20;
+@ports
+	in i1 8 -20 0;
+	out o1 8 20 0;
+
+@algorithm
+	not i1 o1;
+	
+@additional 
+	algorithm;
+	label;

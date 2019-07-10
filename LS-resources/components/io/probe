@@ -1,0 +1,11 @@
+@name probe;
+@vertex
+	-30 -10;
+	50 -10;
+	50 10;
+	-30 10;
+	
+@ports
+	in i 8 -30 0;
+	
+@additional probe;

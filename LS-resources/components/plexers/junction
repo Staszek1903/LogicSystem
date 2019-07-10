@@ -1,0 +1,21 @@
+@name junction;
+@vertex 
+	-10 0;
+	0 10;
+	10 0;
+	0 -10;
+	
+	
+@ports
+	in i1 8 -10 0;
+	out up 8 0 -10;
+	out right 8 10 0;
+	out down 8 0 10;
+
+@algorithm
+	mov i1 up;
+	mov i1 right;
+	mov i1 down;
+	
+@additional 
+	algorithm;

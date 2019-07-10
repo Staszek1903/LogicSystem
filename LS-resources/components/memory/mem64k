@@ -1,0 +1,44 @@
+@name mem64k;
+@vertex 
+	-20 -40;
+	60 -40;
+	60 40;
+	-20 40;
+	
+	
+@ports
+	in en 8 -20 -20;
+	in data 8 -20 0;
+	in adrh 8 -20 20;
+	in adrl 8 -20 30;
+	out o1 8 60 0;
+
+@memory
+	temp;
+	temp2;
+	prev_en;
+	slope;
+	state[65536];
+	
+@algorithm
+	not prev_en slope;
+	and slope en slope;
+	mov en prev_en;
+	
+	add adrl 4 temp;
+	and .carry_reg 1 .carry_reg;
+	add adrh .carry_reg temp2;
+	adr32 0 temp;
+	adr32 1 temp2;
+	
+	not slope temp;
+	and .adr32_mem temp temp;
+	and slope data temp2;
+	or temp temp2 .adr32_mem;
+	mov .adr32_mem o1;
+		
+@additional 
+	algorithm;
+	label;
+	
+@configwindow memory;

@@ -1,0 +1,17 @@
+@name clk;
+@vertex
+	-10 -10;
+	10 -10;
+	10 10;
+	-10 10;
+	
+@ports
+	out o 8 10 0;
+
+@algorithm
+	not o o;
+	
+@additional 
+	algorithm;
+	startpoint;
+	label;

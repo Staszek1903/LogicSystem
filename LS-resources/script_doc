@@ -1,0 +1,103 @@
+Dokumentacja skryptów programu LogicSystem
+
+@sekcja	// '@' oznacza identyfikator sekcji ( spacja nie dozwolona )
+				//Dane w liniach typu string lub float ( zależności od syntaxu sekcji )
+				//';' oznacza koniec lini (spacja niedozwolona) przykład:
+	a 12.2 b;  
+	123 1 3;	
+	
+	
+Sekcje:
+	@name <string>; - nazwa componentu
+	
+	@vertex 
+		<float> <float>; //wierzchołek x, y
+		<float> <float>;
+		.
+		.
+		.
+		
+		// Dowolna ilość ( figura wypukła )
+		
+	@ports
+		<string> <string> <float> <float> <float>; // direction [in, out], name , size(nie zaimplementowano), x,y
+		<string> <string> <float> <float> <float>;
+		.
+		.
+		.
+		
+	@configwindow	// ustawia okno konfiguracji dla danego elementu
+		<string>;	// [memory], [button], [constant]
+		
+	@additional
+		<string>;	//	[button],	 - umorzliwia kontrolowanie buttona z klawiatury (wystawia na pierwszy port out)
+        <string>;	// 	[led],		 - zaswiecanie leda ( wartość z pierwszego portu IN)
+		.			// 	[algorithm], - umorziwia dodanie algorytmu do componentu
+		.			//  [latch]		 - wysietlanie staniu latcha ( pierwszy port MEM )
+		.			//	[probe]		 - wyswietlanie stanu sondy	(pierwsze port IN)
+        			//	[label]		 - wyswietlanie napisu na labelu
+					// 	[pin]		 - constant	(pierwszy port OUT)
+		    		//	[7segdisp]	 - Wyswietlanie w formie DEC ( wartość w pierwszym IN )
+		    		//	[startpoint] - wszystkie elementy wywolujące wykonanie algorytmu
+        
+	@algorithm
+		
+		<assembly inst> <arg1> <arg2> <arg3>;  // opisane poniżej
+		.
+		.
+		. 
+		
+
+	@memory
+		<string> | <string>[<string>];	// nazwa bajtu nietablicowa lub tablicowa z [size];
+		.
+		.
+		.
+		
+	
+		
+GATESASSEMBLER:
+
+	instructions:
+		not <arg1> <arg2>;
+			~arg1 -> arg2
+		or <arg1> <arg2> <arg3>;
+			arg1 | arg2 -> arg3
+		xor <arg1> <arg2> <arg3>;
+			analogicznie
+		nor <arg1> <arg2> <arg3>;
+			analogicznie
+		and <arg1> <arg2> <arg3>;
+			analogicznie
+		add <arg1> <arg2> <arg3>;
+			analogicznie
+			carry przy przepelnieniu	warość carry [0x0 | 0xff]
+		sub <arg1> <arg2> <arg3>;
+			analogicznie 
+			carry przy przejsciu przez 0	warość carry [0x0 | 0xff]
+		mov <arg1> <arg2>
+			arg1 -> arg2
+	    equ <arg1> <arg2> <arg3>;
+			arg1 == arg2 -> arg3	wartosci [0x0, 0xff]
+		lst <arg1> <arg2> <arg3>;
+			arg1 < arg2 -> arg3		wartosci [0x0, 0xff]
+		adr32 <arg1> <arg2>
+			wpisanie do bajtu o indexie arg1 (licząc od najmniejznaczącego) wartości z arg2
+			
+		
+	args:
+		-special
+			<spec>[<arg>] // spec: byte0, byte1, byte2, byte3
+		-type
+			 -rejestry typu in/out/mem z sekcji @ports oraz @memory
+			 -rejestry specjalne ".carry_reg" ( flaga przeniesienia )  i ".adr32_mem" (komurka o adresie z adr32)
+			 -stałe liczbowe
+			 -get_adr[<arg>] //arg typu IN, OUT, MEM // zwraca const index
+			 - in_adr[<arg>] | out_adr[<arg>] | mem_adr[<arg>] // adresowanie sekcji za pomocą indeksu w MEM lub IN
+			
+		-adr
+		
+		
+	
+		
+		

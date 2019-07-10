@@ -1,0 +1,29 @@
+@name sub;
+@vertex 
+	-20 -20;
+	20 -20;
+	20 20;
+	-20 20;
+	
+	
+@ports
+	in i1 8 -20 -10;
+	in i2 8 -20 10;
+	in carry_in 8 0 -20;
+	out o1 8 20 0;
+	out carry_out 8 0 20;
+
+@algorithm
+	sub i1 i2 o1;
+	mov .carry_reg carry_out;
+	and carry_in 1 .carry_reg;
+	sub o1 .carry_reg o1;
+	or .carry_reg carry_out carry_out;
+@comment	or .carry_reg carry_out carry_out;
+	
+		
+@additional 
+	algorithm;
+	label;
+	
+
