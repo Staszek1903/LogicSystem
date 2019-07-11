@@ -1,0 +1,56 @@
+@name splitt;
+@vertex 
+	-10 -20;
+	10 -40;
+	10 40;
+	-10 40;
+	
+	
+@ports
+	in data 8 -10 20;
+	out b0 8 10 35;
+	out b1 8 10 25;
+	out b2 8 10 15;
+	out b3 8 10 5;
+	out b4 8 10 -5;
+	out b5 8 10 -15;
+	out b6 8 10 -25;
+	out b7 8 10 -35;
+
+@memory temp;
+
+@algorithm
+	mov data b0;
+	and b0 1 b0;
+	lst 0 b0 b0;
+	
+	mov data b1;
+	and b1 2 b1;
+	lst 0 b1 b1;
+	
+	mov data b2;
+	and b2 4 b2;
+	lst 0 b2 b2;
+	
+	mov data b3;
+	and b3 8 b3;
+	lst 0 b3 b3;
+	
+	mov data b4;
+	and b4 16 b4;
+	lst 0 b4 b4;
+	
+	mov data b5;
+	and b5 32 b5;
+	lst 0 b5 b5;
+	
+	mov data b6;
+	and b6 64 b6;
+	lst 0 b6 b6;
+	
+	mov data b7;
+	and b7 128 b7;
+	lst 0 b7 b7;
+@additional 
+	algorithm;
+	label;

@@ -1,0 +1,18 @@
+@name extend;
+@vertex 
+	-25 -10;
+	25 -10;
+	25 10;
+	-25 10;
+	
+	
+@ports
+	in data 8 -25 0;
+	out data_out 8 25 0;
+	
+@algorithm
+	lst 0 data data_out;
+	
+@additional 
+	algorithm;
+	label;

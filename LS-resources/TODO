@@ -1,28 +1,42 @@
 Wizualnosc:
-        ! Grubsze wire, różne typy (proste, łamane raz w lewo i w prawo, łamane dwa razy) DONE
+    ! Grubsze wire, różne typy (proste, łamane raz w lewo i w prawo, łamane dwa razy) DONE
 
-        ! nazwa portu in, out na dole ekranu gdy najedziesz kursorem    DONE
+    ! nazwa portu in, out gdy najedziesz kursorem    DONE
 
-        ! wieksze porty latwiejsze do trafienia kursorem    DONE
+    ! wieksze porty latwiejsze do trafienia kursorem    DONE
+        
+    ! teksty z komentarzami
 
 	Wyłączanie/włączanie siatki
 	
 mechanika:
-	mulipupouse registers w maszynie wirtualnej dostepne z poziomu jezyka;
+	multipurpose registers w maszynie wirtualnej dostepne z poziomu jezyka;
+	
 	naprawić dzialanie suba :'( DONE
 	mulipleksery	DONE
+	
+	! splitter (1 bajt do 8 bitów) DONE
+	! extender ( jesli >0 to 0ff )	DONE
+		
 	poprawa dostępu do tablic w pamięci (automatyczne makroobliczanie adresu 32 bitowego)
 
 	nie zaznaczanie podczas przesuwania sliderem
 
-        ! zapisywanie stanu constów, latchy i memory
+    ! zapisywanie stanu constów, latchy i memory
+        
+    spróbować skompilować na androidzie ( port inputu, kompilacja entity_x )
 	
 W dalszej przyszlosci:
 	wyswietlacz graficzny 128/128
 	terminal tty
 	buffor klawiatury
+	tunele jak w eagle i logisim
 
-        renderowanie wielowątkowe ( osobno wires, bramki itp )
-        customowy generator jezyków assemblera do memory
-        kompilator projektu do jednego componentu ( problem ze złaczeniem pamieci , dostep tylko do 255 adresow)
+    renderowanie wielowątkowe ( osobno wires, bramki itp )
+    customowy generator jezyków assemblera do memory
+    kompilator projektu do jednego componentu ( problem ze złaczeniem pamieci , dostep tylko do 255 adresow)
+    
+    doksy uzywania programu
+    doksy pisania okien (OOP GUI)
+    okno ze sterowany robotem XD
 	

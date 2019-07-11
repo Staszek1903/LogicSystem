@@ -21,6 +21,8 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
     Wire::Handle wire;
     Line::Handle line;
 
+
+    //ODCZYT BRAMEK
     int id = 0;
     for(auto en : manager.entities_with_components(type,pos))
     {
@@ -31,9 +33,26 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
             button_keys[id] = c_b->key;
             //std::cout<<"zapisuje: "<<static_cast<char>(c_b->key + 65)<<" dla id: "<<id<<std::endl;
         }
+
+        if(en.has_component<Constant>())
+        {
+            // zapis stanu
+        }
+
+        if(en.has_component<Latch>())
+        {
+            //zapis stanu
+        }
+
+        if(en.has_component<Memory>())
+        {
+            //najpierw zapisz plik z kontentem i wpisz odnoscik do tego pliku
+        }
+
         ++id;
     }
 
+    //ZAPIS BRAMKI
     for(auto p: circuits_data)
     {
         std::stringstream s_id, s_x, s_y;
@@ -114,9 +133,9 @@ void loader(entityx::EntityX &enX, ContainersContainer &cont, std::string &dir)
         int y = parser.getFloat();
 
         entities[id] = create(enX.entities, cont.names.get_index(name), sf::Vector2f(x,y));
-        if(!parser.EndOfLine())
+        if(!parser.EndOfLine()) // jesli nie koniec linni pobiera dodatkowe info
         {
-            std::string s = parser.getString();
+            std::string s = parser.getString(); //Dodatakowy kontent
             //std::cout<<"wykryto ogon: ["<<s<<"]"<<std::endl;
             if(entities[id].has_component<CircuitButton>())
             {
@@ -125,6 +144,21 @@ void loader(entityx::EntityX &enX, ContainersContainer &cont, std::string &dir)
                 ss>>k;
                 CircuitButton::Handle c_b = entities[id].component<CircuitButton>();
                 c_b->key = int_to_sf_key[k];
+            }
+
+            if(entities[id].has_component<Constant>())
+            {
+                // odczyt stanu
+            }
+
+            if(entities[id].has_component<Latch>())
+            {
+                // odczyt stanu
+            }
+
+            if(entities[id].has_component<Memory>())
+            {
+                //wczytanie pliku z kontentem do memory ( jak to nie wiem )
             }
 
         }

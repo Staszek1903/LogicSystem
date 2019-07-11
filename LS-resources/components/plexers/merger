@@ -1,0 +1,59 @@
+@name merge;
+@vertex 
+	-10 -40;
+	10 -20;
+	10 40;
+	-10 40;
+	
+	
+@ports
+	out data 8 10 20;
+	in b0 8 -10 35;
+	in b1 8 -10 25;
+	in b2 8 -10 15;
+	in b3 8 -10 5;
+	in b4 8 -10 -5;
+	in b5 8 -10 -15;
+	in b6 8 -10 -25;
+	in b7 8 -10 -35;
+
+@memory temp;
+
+@algorithm
+	mov 0 data;
+	
+	mov b0 temp;
+	and temp 1 temp;
+	or data temp data;
+	
+	mov b1 temp;
+	and temp 2 temp;
+	or data temp data;
+	
+	mov b2 temp;
+	and temp 4 temp;
+	or data temp data;
+	
+	mov b3 temp;
+	and temp 8 temp;
+	or data temp data;
+	
+	mov b4 temp;
+	and temp 16 temp;
+	or data temp data;
+	
+	mov b5 temp;
+	and temp 32 temp;
+	or data temp data;
+	
+	mov b6 temp;
+	and temp 64 temp;
+	or data temp data;
+	
+	mov b7 temp;
+	and temp 128 temp;
+	or data temp data;
+	
+@additional 
+	algorithm;
+	label;
