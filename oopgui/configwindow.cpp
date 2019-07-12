@@ -24,5 +24,5 @@ void ConfigWindowBase::load_config(Configs &conf)
 
 ConfigWindowBase *createNoneWindow()
 {
-    return NULL;
+    return nullptr;
 }

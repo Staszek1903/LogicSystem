@@ -16,7 +16,7 @@ class ConfigCreator
 public:
     ConfigCreator();
     void setDir(std::string dir);
-    void addSection(std::string section, std::vector<std::vector<std::string> > &data);
+    void addSection(std::string section, std::vector <std::vector <std::string> > &data);
     void create();
 };
 

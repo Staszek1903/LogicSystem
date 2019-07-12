@@ -5,7 +5,7 @@ Wizualnosc:
 
     ! wieksze porty latwiejsze do trafienia kursorem    DONE
         
-    ! teksty z komentarzami
+    ! teksty z komentarzami ( stworzyc config dla objektu z nazwą i labelem i dodać config window modyfikujący tekst labela )
 
 	Wyłączanie/włączanie siatki
 	
@@ -22,7 +22,7 @@ mechanika:
 
 	nie zaznaczanie podczas przesuwania sliderem
 
-    ! zapisywanie stanu constów, latchy i memory
+    ! zapisywanie stanu constów, latchy i memory DONE
         
     spróbować skompilować na androidzie ( port inputu, kompilacja entity_x )
 	

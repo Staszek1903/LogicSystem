@@ -15,6 +15,9 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
     std::vector <std::vector <std::string> > wires_section;
     std::vector <DATA> circuits_data;
     std::map <int, sf::Keyboard::Key> button_keys;
+    std::map < int, uint8_t > inner_states;
+    std::map <std::string, std::vector<std::string> > memory_sections;
+    std::map < int, std::string > inner_sections;
 
     Position::Handle pos;
     CircuitTypeIndex::Handle type;
@@ -26,6 +29,8 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
     int id = 0;
     for(auto en : manager.entities_with_components(type,pos))
     {
+        id++;
+
         circuits_data.push_back({id, en, cont.names.get_name(type->index), pos->pos});
         if(en.has_component<CircuitButton>())
         {
@@ -36,20 +41,56 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
 
         if(en.has_component<Constant>())
         {
-            // zapis stanu
+            auto ports = en.component<Ports>();
+            auto & out_ports = cont.ports.get_ports_out(ports->index);
+            if(out_ports.size() == 0)
+            {
+                std::cout <<"cant find outports in constant"<<std::endl;
+                continue;
+            }
+            uint8_t state = out_ports.at(0).data;
+            inner_states[id] = state;
+            //tODO
         }
 
-        if(en.has_component<Latch>())
+        /*if(en.has_component<Latch>())
         {
-            //zapis stanu
-        }
+            auto mem = en.component<Memory>();
+            auto & memory = cont.memory.get_mem(mem->index);
+            if(memory.size() == 0)
+            {
+                std::cout <<"cant find memory in latch"<<std::endl;
+                continue;
+            }
+            uint8_t state = memory.at(0);
+            inner_states[id] = state;
+        }*/
+
+        // ZAPIS PAMIECI ( Jak zidentyfikować pamieć?? (na pewno nie komponent Memory))
+        // UPDATE: zapisywać wszytkie komponenty z memory, zpisywać odnosnik do sekcji
+        //  kontent memory w sekcji
 
         if(en.has_component<Memory>())
         {
-            //najpierw zapisz plik z kontentem i wpisz odnoscik do tego pliku
-        }
+            auto mem = en.component<Memory>();
+            auto & memory = cont.memory.get_mem(mem->index);
+            if(memory.size() == 0) continue;
 
-        ++id;
+            std::stringstream ss;
+            ss << id;
+            std::string section_name = "memory"+ ss.str();
+            inner_sections[id] = section_name;
+
+            std::vector <std::string> memory_content;
+            for(uint8_t d : memory)
+            {
+                int temp = d;
+                std::stringstream ss2;
+                ss2<<temp;
+                memory_content.push_back(ss2.str());
+            }
+            memory_sections[section_name] = memory_content;
+        }
     }
 
     //ZAPIS BRAMKI
@@ -73,6 +114,19 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
             line.push_back(ks);
         }
 
+        if(inner_states.find(p.id) != inner_states.end())
+        {
+            std::stringstream ss;
+            int  temp = inner_states.at((p.id));
+            ss<< temp;
+            line.push_back(ss.str());
+        }
+
+        if(inner_sections.find(p.id) != inner_sections.end())
+        {
+            line.push_back(inner_sections.at(p.id));
+        }
+
         circuits_section.push_back(line);            
     }
 
@@ -94,6 +148,17 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
 
     cc.addSection("circuits", circuits_section);
     cc.addSection("wires", wires_section);
+
+    //MEMORY_SECTIONS
+
+    for(auto & section : memory_sections)
+    {
+        std::vector <std::string> & content = section.second;
+        std::vector < std::vector <std::string> > temp;
+        temp.push_back(content);
+        cc.addSection(section.first, temp); // KONCERSJA UINT NA STRING I JESZCZE ODCZYT
+    }
+
     cc.setDir("./LS-resources/projects/"+ filename);
     cc.create();
 }
@@ -123,6 +188,8 @@ void loader(entityx::EntityX &enX, ContainersContainer &cont, std::string &dir)
     CircutCreator create(enX,cont);
     WireCreator w_create(enX, cont);
 
+    std::map <int, std::string > additional_sections;
+
     std::map < int, entityx::Entity > entities;
 
     while(!parser.EndOfSection())
@@ -148,19 +215,51 @@ void loader(entityx::EntityX &enX, ContainersContainer &cont, std::string &dir)
 
             if(entities[id].has_component<Constant>())
             {
-                // odczyt stanu
+                auto ports = entities[id].component<Ports>();
+                auto & out_ports = cont.ports.get_ports_out(ports->index);
+                if(out_ports.size() == 0)
+                {
+                    std::cout <<"cant find outports in constant"<<std::endl;
+                    continue;
+                }
+                std::stringstream ss(s);
+                int temp;
+                ss >> temp;
+                out_ports.at(0).data = static_cast<uint8_t> (temp);
             }
 
-            if(entities[id].has_component<Latch>())
+            /*if(entities[id].has_component<Latch>())
             {
-                // odczyt stanu
-            }
+                auto mem = entities[id].component<Memory>();
+                auto & memory = cont.memory.get_mem(mem->index);
+                if(memory.size() == 0)
+                {
+                    std::cout <<"cant find memory in latch"<<std::endl;
+                    continue;
+                }
 
-            if(entities[id].has_component<Memory>())
-            {
-                //wczytanie pliku z kontentem do memory ( jak to nie wiem )
-            }
+                std::stringstream ss(s);
+                ss >> memory.at(0);
+            }*/
 
+            additional_sections[id] = s;
+
+        }
+    }
+
+    // MEMORY_CONTENTS
+    for(auto & p : additional_sections)
+    {
+        if(!parser.setSection(p.second)) continue;
+        int id = p.first;
+        auto mem = entities[id].component<Memory>();
+        auto & memory = cont.memory.get_mem(mem->index);
+
+        size_t iter = 0;
+        while(!parser.EndOfSection() && iter < memory.size())
+        {
+            memory.at(iter) = static_cast <uint8_t> (parser.getFloat());
+            iter++;
         }
     }
 
