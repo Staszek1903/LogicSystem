@@ -11,6 +11,7 @@
 #include <oopgui/bindbuttonwindow.h>
 #include <oopgui/constwindow.h>
 #include <oopgui/memorywindow.h>
+#include <oopgui/textwindow.h>
 
 #include <entityx/entityx.h>
 

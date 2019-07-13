@@ -12,6 +12,7 @@ LIBS += -lentityx
 SOURCES += main.cpp \
     containers/portnamescontainer.cpp \
     line.cpp \
+    oopgui/textwindow.cpp \
     program.cpp \
     systems/rendersystem.cpp \
     systems/guisystem.cpp \
@@ -57,6 +58,7 @@ HEADERS += \
     components/partid.h \
     containers/portnamescontainer.h \
     line.h \
+    oopgui/textwindow.h \
     program.h \
     systems/rendersystem.h \
     components/circcomponent.h \

@@ -27,7 +27,7 @@ Sekcje:
 		.
 		
 	@configwindow	// ustawia okno konfiguracji dla danego elementu
-		<string>;	// [memory], [button], [constant]
+		<string>;	// [memory], [button], [constant], [text]
 		
 	@additional
 		<string>;	//	[button],	 - umorzliwia kontrolowanie buttona z klawiatury (wystawia na pierwszy port out)

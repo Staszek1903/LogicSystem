@@ -1,0 +1,12 @@
+@name TEXT:;
+@vertex
+	-5 -5;
+	5 -5;
+	5 5;
+	-5 5;
+@ports
+	in o 0 -20 0;
+@additional
+	label;
+@configwindow
+	text;

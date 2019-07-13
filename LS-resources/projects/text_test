@@ -1,0 +1,14 @@
+@circuits
+	 1 TEXT: 250 100 text1;
+	 2 TEXT: 260 190 text2;
+	 3 TEXT: 260 230 text3;
+	 4 TEXT: 270 300 text4;
+@text1
+	 TEXT:Kurwaheh;
+@text2
+	 TEXT:Dupa;
+@text3
+	 TEXT:Cipa;
+@text4
+	 TEXT:Huj;
+@wires

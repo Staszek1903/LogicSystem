@@ -143,6 +143,8 @@ bool ComponentsLoader::load_config_type(ConfigParser &parser)
         container.win_create.creates.push_back(createConstWindow);
     if(s == std::string("memory"))
         container.win_create.creates.push_back(create_memory_window);
+    if(s == std::string("text"))
+        container.win_create.creates.push_back(createTextWindow);
 
     return true;
 }

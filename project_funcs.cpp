@@ -17,6 +17,7 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
     std::map <int, sf::Keyboard::Key> button_keys;
     std::map < int, uint8_t > inner_states;
     std::map <std::string, std::vector<std::string> > memory_sections;
+    std::map <std::string, std::string> text_sections;
     std::map < int, std::string > inner_sections;
 
     Position::Handle pos;
@@ -74,7 +75,7 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
         {
             auto mem = en.component<Memory>();
             auto & memory = cont.memory.get_mem(mem->index);
-            if(memory.size() == 0) continue;
+            if(memory.size() == 0) goto Label; // XD ale archaizm // continue;
 
             std::stringstream ss;
             ss << id;
@@ -90,6 +91,20 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
                 memory_content.push_back(ss2.str());
             }
             memory_sections[section_name] = memory_content;
+        }
+
+        Label:
+        if(en.has_component<Label>())
+        {
+            auto l = en.component<Label>();
+            if(l->text.find("TEXT:") == std::string::npos) continue;
+
+            std::stringstream ss;
+            ss << id;
+            std::string section_name = "text"+ ss.str();
+            inner_sections[id] = section_name;
+
+            text_sections[section_name] = l->text;
         }
     }
 
@@ -157,6 +172,16 @@ void saver(std::string filename, entityx::EntityManager &manager, ContainersCont
         std::vector < std::vector <std::string> > temp;
         temp.push_back(content);
         cc.addSection(section.first, temp); // KONCERSJA UINT NA STRING I JESZCZE ODCZYT
+    }
+
+    //TEXT_SECTIONS
+    for(auto & section : text_sections)
+    {
+        std::vector <std::string> content;
+        content.push_back(section.second);
+        std::vector < std::vector <std::string> > temp;
+        temp.push_back(content);
+        cc.addSection(section.first,temp);
     }
 
     cc.setDir("./LS-resources/projects/"+ filename);
@@ -252,14 +277,25 @@ void loader(entityx::EntityX &enX, ContainersContainer &cont, std::string &dir)
     {
         if(!parser.setSection(p.second)) continue;
         int id = p.first;
+
+        // Kazdy entit ma Memory ( zebys sie nie zdziwił XD)
         auto mem = entities[id].component<Memory>();
         auto & memory = cont.memory.get_mem(mem->index);
 
-        size_t iter = 0;
-        while(!parser.EndOfSection() && iter < memory.size())
+        if(memory.size() != 0)
         {
-            memory.at(iter) = static_cast <uint8_t> (parser.getFloat());
-            iter++;
+            size_t iter = 0;
+            while(!parser.EndOfSection() && iter < memory.size())
+            {
+                memory.at(iter) = static_cast <uint8_t> (parser.getFloat());
+                iter++;
+            }
+        }
+        else if(entities[id].has_component<Label>())
+        {
+            auto l = entities[id].component<Label>();
+            if(l->text.find("TEXT:") == std::string::npos) continue;
+            l->text = parser.getString();
         }
     }
 

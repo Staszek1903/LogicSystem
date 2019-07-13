@@ -1,7 +1,7 @@
 #include "wireline.h"
 
 stuff::WireLine::WireLine(const sf::Vector2f &begining, const sf::Vector2f &end)
-    :type(STR_ANG_VER), lines_count(0), begining(begining), end(end),
+    :type(STR_ANG_HOR), lines_count(0), begining(begining), end(end),
       break_place(0.5f),  thickness(3.0f), color(sf::Color::Magenta)
 {
     update_shape();

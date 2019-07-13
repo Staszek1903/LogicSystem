@@ -5,7 +5,7 @@ Wizualnosc:
 
     ! wieksze porty latwiejsze do trafienia kursorem    DONE
         
-    ! teksty z komentarzami ( stworzyc config dla objektu z nazwą i labelem i dodać config window modyfikujący tekst labela )
+    ! teksty z komentarzami ( stworzyc config dla objektu z nazwą i labelem i dodać config window modyfikujący tekst labela ) ( Zapisywanie tekstu z labeli XDDD) DONE UFF..
 
 	Wyłączanie/włączanie siatki
 	
@@ -31,7 +31,8 @@ W dalszej przyszlosci:
 	terminal tty
 	buffor klawiatury
 	tunele jak w eagle i logisim
-
+	okno ze sterowanym robotem z fizyką XD
+	
     renderowanie wielowątkowe ( osobno wires, bramki itp )
     customowy generator jezyków assemblera do memory
     kompilator projektu do jednego componentu ( problem ze złaczeniem pamieci , dostep tylko do 255 adresow)

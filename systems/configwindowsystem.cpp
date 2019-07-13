@@ -31,9 +31,15 @@ void ConfigWindowSystem::update(entityx::EntityManager &entities, entityx::Event
         }
         else if(w.first.has_component<Constant>())
         {
-            std::cout<<"new value: "<<conf.universal<<std::endl;
+            //std::cout<<"new value: "<<conf.universal<<std::endl;
             Ports::Handle ports = w.first.component<Ports>();
             container.ports.get_ports_out(ports->index)[0].data = conf.universal;
+        }
+        else if(w.first.has_component<Label>())
+        {
+            auto l = w.first.component<Label>();
+            if(conf.text.find("TEXT:") != std::string::npos)
+                l->text = conf.text;
         }
 
         if(!w.second->update())
@@ -123,6 +129,13 @@ void ConfigWindowSystem::receive(const ConfigWindowCreateEvent &event)
     {
         Memory::Handle mem = en.component<Memory>();
         conf.memory = &(container.memory.get_mem(mem->index));
+    }
+
+    if (event.en.has_component<Label>())
+    {
+        auto l = en.component<Label>();
+        if(l->text.find("TEXT:") != std::string::npos)
+            conf.text = l->text.substr(5);
     }
 
     base->load_config(conf);

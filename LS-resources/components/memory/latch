@@ -9,6 +9,7 @@
 @ports
 	in en 8 -20 -10;
 	in data 8 -20 10;
+	in rst 9 0 20;
 	out o1 8 20 0;
 
 @memory
@@ -27,6 +28,10 @@
 	and state temp temp;
 	and slope data temp2;
 	or temp temp2 state;
+	
+	not rst temp;
+	and temp state state;
+	
 	mov state o1;
 		
 @additional 

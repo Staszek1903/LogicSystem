@@ -15,6 +15,7 @@
 #include <components/yesnowindow.h>
 #include <components/savedata.h>
 #include <components/loaddata.h>
+#include <components/label.h>
 
 #include <containers/containerscontainer.h>
 
